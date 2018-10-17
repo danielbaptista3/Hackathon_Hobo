@@ -1,0 +1,3 @@
+#Ignoring Api Build files
+Hackaton-Api\node_modules
+Hackaton-Api\.idea
