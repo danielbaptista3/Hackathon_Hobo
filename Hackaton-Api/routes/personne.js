@@ -12,10 +12,10 @@ personneRouter.get('/zone/:zone', function (req, res) {
             res.status(500).end();
         }
         if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
+            data = JSON.parse(data);
+            res.json(data).status(200)
         }
+        res.status(404).end();
     });
 });
 
@@ -25,10 +25,10 @@ personneRouter.get('/:id', function (req, res) {
             res.status(500).end();
         }
         if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
+            data = JSON.parse(data);
+            res.json(data).status(200);
         }
+        res.status(404).end();
     });
 });
 
@@ -38,28 +38,26 @@ personneRouter.get('/', function (req, res) {
             res.status(500).end();
         }
         if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
+            data = JSON.parse(data);
+            res.json(data).status(200).end();
         }
+        res.status(404).end();
     });
 });
 
 personneRouter.post('/', function (req, res) {
     personneController.create([req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
-        if (state === false) {
-            res.status(500).end();
+        if (state === true) {
+            res.json(state).status(200).end();
+            return;
         }
-        if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
-        }
+        res.status(500).end();
+        return;
     });
 });
 
 personneRouter.post('/delete/:id', function (req, res) {
-    personneController.delete(req.params.id, function (data, state) {
+    personneController.delete(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

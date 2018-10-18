@@ -7,28 +7,24 @@ const associationController = controllers.association;
 associationRouter.use(bodyParser.json());
 
 associationRouter.get('/:username/:password', function (req, res) {
-    associationController.connect(req.params.username, req.params.password, function (data, state) {
-        if (state === false) {
-            res.status(500).end();
+    associationController.connect(req.params.username, req.params.password, function (state) {
+        if (state === true) {
+            res.json(state).status(200).end();
+            return;
         }
-        if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
-        }
+        res.status(500).end();
+        return;
     });
 });
 
 associationRouter.post('/', function (req, res) {
     associationController.create([req.body.name, req.body.mail, req.body.password, req.body.rna, req.body.siren], function (state) {
-        if (state === false) {
-            res.status(500).end();
+        if (state === true) {
+            res.json(state).status(200).end();
+            return;
         }
-        if (data !== 0) {
-            res.status(200);
-        } else {
-            res.status(404);
-        }
+        res.status(500).end();
+        return;
     });
 });
 
@@ -56,7 +52,7 @@ associationRouter.post('/update/:id', function (req, res) {
 });
 
 associationRouter.post('/delete/:id', function (req, res) {
-    associationController.delete(req.params.id, function (data, state) {
+    associationController.delete(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
