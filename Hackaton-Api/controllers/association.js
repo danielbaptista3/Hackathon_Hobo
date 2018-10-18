@@ -2,7 +2,7 @@ const bddController = require('./bdd');
 const associationController = function(){};
 
 associationController.connect = function(username, password, callback) {
-    bddController.executeQuery('select * from association, admin where (association.mail = ? and association.password = ?) or (admin.user = ? and admin.password = ?))', [username, password], function(data, state){
+    bddController.executeQuery('select * from association, admin where (association.mail = ? and association.password = ?) OR (admin.user = ? and admin.password = ?)', [username, password, username, password], function(data, state){
         callback(data, state);
     });
 };
@@ -14,7 +14,7 @@ associationController.create = function(values, callback) {
 };
 
 associationController.deleteById = function(id, callback){
-    bddController.executeQuery('delete from association where id = ?', [id],
+    bddController.executeQuery('delete from association where id = ? UNION  delete from logement where idAsso = ? UNION delete from job where idAsso = ? UNION delete from admin where idAsso = ? UNION delete from visite where idAsso = ?', [id, id, id, id, id],
         function(result, state){
             callback(state);
         });
