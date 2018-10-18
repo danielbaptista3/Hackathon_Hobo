@@ -8,13 +8,16 @@ associationRouter.use(bodyParser.json());
 
 associationRouter.get('/:username/:password', function (req, res) {
     associationController.connect(req.params.username, req.params.password, function (data, state) {
+        console.log("coucou");
         if (state === false) {
             res.status(500).end();
+            return;
         }
         if (data !== 0) {
-            res.status(200);
+            res.status(200).end();
+            return;
         } else {
-            res.status(404);
+            res.status(404).end();
         }
     });
 });
@@ -25,9 +28,9 @@ associationRouter.post('/', function (req, res) {
             res.status(500).end();
         }
         if (data !== 0) {
-            res.status(200);
+            res.status(200).end();
         } else {
-            res.status(404);
+            res.status(404).end();
         }
     });
 });

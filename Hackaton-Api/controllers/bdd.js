@@ -6,8 +6,8 @@ const bddController = function(){ };
 
 var pool = mysql.createPool(connection);
 
-bddController.start = function(callback, connection){
-    pool.getConnection(function(err, connection){
+bddController.start = function(callback){
+    pool.getConnection(function(err){
         if(err)
         {
             console.log("Erreur lors de la connection: " +err);
@@ -24,7 +24,7 @@ bddController.start = function(callback, connection){
 bddController.executeQuery = function(text, values, callback){
     var state = false;
 
-    bddController.start(function(state, connection) {
+    bddController.start(function(state) {
         if(state === false) {callback(undefined, state); return;}
         pool.query(text, values, function(err, res){
             if(err){
@@ -37,6 +37,8 @@ bddController.executeQuery = function(text, values, callback){
             console.log('Requête executée');
             data = JSON.stringify(res);
             state = true;
+            console.log(state);
+            console.log(data);
             callback(data, state);
         });
     });

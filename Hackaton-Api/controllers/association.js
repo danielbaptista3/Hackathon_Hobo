@@ -1,8 +1,8 @@
 const bddController = require('./bdd');
 const associationController = function(){};
 
-associationController.connect = function(username, password) {
-    bddController.executeQuery('select * from association where username = ? and password = ?', [username, password], function(data, state){
+associationController.connect = function(username, password, callback) {
+    bddController.executeQuery('select * from association where mail = ? and password = ?', [username, password], function(data, state){
         callback(data, state);
     });
 };
