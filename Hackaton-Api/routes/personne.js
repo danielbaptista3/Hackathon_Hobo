@@ -46,7 +46,7 @@ personneRouter.get('/', function (req, res) {
 });
 
 personneRouter.post('/', function (req, res) {
-    personneController.create([req.body.lastName, req.body.name, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
+    personneController.create([req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -58,8 +58,8 @@ personneRouter.post('/', function (req, res) {
     });
 });
 
-associationRouter.post('/delete/:id', function (req, res) {
-    associationController.delete(req.params.id, function (data, state) {
+personneRouter.post('/delete/:id', function (req, res) {
+    personneController.delete(req.params.id, function (data, state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
