@@ -4,6 +4,6 @@ module.exports = {
     logement: require('./logement'),
     job: require('./job'),
     admin: require('./admin'),
-    visite: require('./visite')
-
+    visite: require('./visite'),
+    bdd: require('./bdd')
 }
