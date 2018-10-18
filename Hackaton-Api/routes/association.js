@@ -7,12 +7,16 @@ const associationController = controllers.association;
 associationRouter.use(bodyParser.json());
 
 associationRouter.get('/:username/:password', function (req, res) {
-    associationController.connect(req.params.username, req.params.password, function (state) {
-        if (state === true) {
-            res.json(state).status(200).end();
+    associationController.connect(req.params.username, req.params.password, function (data, state) {
+        if (state === false) {
+            res.status(500).end();
             return;
         }
-        res.status(500).end();
+        if (data !== 0) {
+            res.json(data).status(200).end();
+            return;
+        }
+        res.status(404).end();
         return;
     });
 });
