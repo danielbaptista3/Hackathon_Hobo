@@ -8,6 +8,7 @@ associationRouter.use(bodyParser.json());
 
 associationRouter.get('/:username/:password', function (req, res) {
     associationController.connect(req.params.username, req.params.password, function (data, state) {
+        data = JSON.parse(data);
         if (state === false) {
             res.status(500).end();
             return;
@@ -21,7 +22,7 @@ associationRouter.get('/:username/:password', function (req, res) {
     });
 });
 
-associationRouter.post('/', function (req, res) {
+associationRouter.post('/create', function (req, res) {
     associationController.create([req.body.name, req.body.mail, req.body.password, req.body.rna, req.body.siren], function (state) {
 
         if (state === true) {
@@ -56,7 +57,7 @@ associationRouter.put('/update/:id', function (req, res) {
     }
 });
 
-associationRouter.post('/delete/:id', function (req, res) {
+associationRouter.delete('/delete/:id', function (req, res) {
     associationController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();

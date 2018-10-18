@@ -14,8 +14,8 @@ logementController.getById = function(id, callback) {
 };
 
 logementController.create = function(values, callback) {
-    bddController.executeQuery('insert into logement (adresse, prix, ville, CP, surface, libre, idAsssoc) values ?', values, function(data, state){
-        callback(data, state);
+    bddController.executeQuery('insert into logement (adresse, prix, ville, CP, surface, libre, idAsso) values (?)', [values], function(data, state){
+        callback(state);
     });
 };
 
@@ -32,7 +32,7 @@ logementController.update = function(columns, values, id, callback) {
 
     for(var column of columns)
     {
-        text += column + ' = $' + i +', ';
+        text += column + ' = ?, ';
         i++;
     }
     text = text.slice(0,-2) + ' where id = ' + id;

@@ -7,12 +7,16 @@ const visiteController = controllers.visite;
 visiteRouter.use(bodyParser.json());
 
 visiteRouter.get('/:idSDF/:idAssoc', function (req, res) {
-    visiteController.getLast([req.params.idSDF, req.params.idAssoc], function (state) {
-        if (state === true) {
-            res.json(state).status(200).end();
+    visiteController.getLast(req.params.idSDF, req.params.idAssoc, function (data, state) {
+        if (state === false) {
+            res.status(500).end();
             return;
         }
-        res.status(500).end();
+        if (state !== 0) {
+            res.json(data).status(200).end();
+            return;
+        }
+        res.status(404).end();
         return;
     });
 });

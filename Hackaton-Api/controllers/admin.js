@@ -14,7 +14,7 @@ adminController.update = function(columns, values, id, callback) {
 
     for(var column of columns)
     {
-        text += column + ' = $' + i +', ';
+        text += column + ' = ?, ';
         i++;
     }
     text = text.slice(0,-2) + ' where id = ' + id;

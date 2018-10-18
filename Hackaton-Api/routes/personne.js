@@ -6,9 +6,21 @@ const personneController = controllers.personne;
 
 personneRouter.use(bodyParser.json());
 
-// TODO
-personneRouter.get('/zone/:zone', function (req, res) {
-    personneController.getByZone(req.params.zone, function (data, state) {
+personneRouter.get('/all', function (req, res) {
+    personneController.getAll(function (data, state) {
+        if (state === false) {
+            res.status(500).end();
+        }
+        if (data !== 0) {
+            data = JSON.parse(data);
+            res.json(data).status(200)
+        }
+        res.status(404).end();
+    });
+});
+
+personneRouter.get('/zone/:latitude/:longitude', function (req, res) {
+    personneController.getByZone(req.params.latitude, req.params.longitude, function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -21,12 +33,17 @@ personneRouter.get('/zone/:zone', function (req, res) {
 });
 
 personneRouter.post('/create', function (req, res) {
-    personneController.create([req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
+    var values = [req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self];
+
+    personneController.create(values, function(state) {
         if (state === true) {
-            res.json(state).status(200).end();
+            console.log(state);
+            res.json(state).status(200);
             return;
         }
-        res.status(500).end();
+        console.log(state);
+
+        res.status(400).end();
         return;
     });
 });

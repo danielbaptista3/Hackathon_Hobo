@@ -8,14 +8,14 @@ jobController.getAll = function(callback) {
 };
 
 jobController.getById = function(id, callback) {
-    bddController.executeQuery('select * from job', [id], function(data, state){
+    bddController.executeQuery('select * from job where id = ?', [id], function(data, state){
         callback(data, state);
     });
 };
 
 jobController.create = function(values, callback) {
-    bddController.executeQuery('insert into job (nom, adresse, ville, cp, description, salaire, actif, idAssoc) values ?', values, function(data, state){
-        callback(data, state);
+    bddController.executeQuery('insert into job (nom, adresse, ville, cp, description, salaire, actif, idAsso) values (?)', [values], function(data, state){
+        callback(state);
     });
 };
 
@@ -32,7 +32,7 @@ jobController.update = function(columns, values, id, callback) {
 
     for(var column of columns)
     {
-        text += column + ' = $' + i +', ';
+        text += column + ' = ?, ';
         i++;
     }
     text = text.slice(0,-2) + ' where id = ' + id;

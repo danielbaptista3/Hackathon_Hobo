@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-
 const config= require('../config');
 var connection = config.database;
 const bddController = function(){ };
@@ -30,14 +29,13 @@ bddController.executeQuery = function(text, values, callback){
             if(err){
                 state = false;
                 console.log('Erreur lors de l\'execution de la requête: '+err);
-                callback(undefined, state);
+                callback(undefined, false);
                 return;
             }
 
             console.log('Requête executée');
             data = JSON.stringify(res);
-            state = true;
-            callback(data, state);
+            callback(data, true);
         });
     });
 };

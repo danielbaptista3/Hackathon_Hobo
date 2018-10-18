@@ -8,13 +8,13 @@ associationController.connect = function(username, password, callback) {
 };
 
 associationController.create = function(values, callback) {
-    bddController.executeQuery('insert into association (Nom, mail, password, RNA, SIREN) values ?', values, function(data, state){
-        callback(data, state);
+    bddController.executeQuery('insert into association (Nom, mail, password, RNA, SIREN) values (?)', [values], function(data, state){
+        callback(state);
     });
 };
 
 associationController.deleteById = function(id, callback){
-    bddController.executeQuery('delete from association where id = ? UNION  delete from logement where idAsso = ? UNION delete from job where idAsso = ? UNION delete from admin where idAsso = ? UNION delete from visite where idAsso = ?', [id, id, id, id, id],
+    bddController.executeQuery('delete from association where id = ?', [id],
         function(result, state){
             callback(state);
         });
@@ -26,7 +26,7 @@ associationController.update = function(columns, values, id, callback) {
 
     for(var column of columns)
     {
-        text += column + ' = $' + i +', ';
+        text += column + ' = ?, ';
         i++;
     }
     text = text.slice(0,-2) + ' where id = ' + id;

@@ -32,8 +32,8 @@ logementRouter.get('/all', function (req, res) {
     });
 });
 
-logementRouter.post('/', function (req, res) {
-    logementController.create([req.body.address, req.body.price, req.body.city, req.body.cp, req.body.area, req.body.available, /* TODO session.idAssociation */], function (state) {
+logementRouter.post('/create', function (req, res) {
+    logementController.create([req.body.address, req.body.price, req.body.city, req.body.cp, req.body.area, req.body.available, req.body.idAsso], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
@@ -66,7 +66,7 @@ logementRouter.put('/update/:id', function (req, res) {
     }
 });
 
-logementRouter.post('/delete/:id', function (req, res) {
+logementRouter.delete('/delete/:id', function (req, res) {
     logementController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
