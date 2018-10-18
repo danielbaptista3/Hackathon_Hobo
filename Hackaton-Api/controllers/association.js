@@ -14,7 +14,7 @@ associationController.create = function(values, callback) {
 };
 
 associationController.deleteById = function(id, callback){
-    bddController.executeQuery('delete from association where id = ?', [id],
+    bddController.executeQuery('delete from association where id = ? UNION  delete from logement where idAsso = ? UNION delete from job where idAsso = ? UNION delete from admin where idAsso = ? UNION delete from visite where idAsso = ?', [id, id, id, id, id],
         function(result, state){
             callback(state);
         });
