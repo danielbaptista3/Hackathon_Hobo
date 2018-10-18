@@ -7,7 +7,7 @@ const logementController = controllers.logement;
 logementRouter.use(bodyParser.json());
 
 logementRouter.get('/:id', function (req, res) {
-    logementController.findOne(req.params.id, function (data, state) {
+    logementController.getById(req.params.id, function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -19,8 +19,8 @@ logementRouter.get('/:id', function (req, res) {
     });
 });
 
-logementRouter.get('/', function (req, res) {
-    logementController.findAll(function (data, state) {
+logementRouter.get('/all', function (req, res) {
+    logementController.getAll(function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -43,7 +43,7 @@ logementRouter.post('/', function (req, res) {
     });
 });
 
-logementRouter.post('/update/:id', function (req, res) {
+logementRouter.put('/update/:id', function (req, res) {
     if (Number.parseInt(req.params.id)) {
         var values = []
         var columns = []
@@ -67,7 +67,7 @@ logementRouter.post('/update/:id', function (req, res) {
 });
 
 logementRouter.post('/delete/:id', function (req, res) {
-    logementController.delete(req.params.id, function (state) {
+    logementController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

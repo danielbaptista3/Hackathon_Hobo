@@ -7,7 +7,7 @@ const jobController = controllers.job;
 jobRouter.use(bodyParser.json());
 
 jobRouter.get('/:id', function (req, res) {
-    jobController.findOne(req.params.id, function (data, state) {
+    jobController.getById(req.params.id, function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -20,7 +20,7 @@ jobRouter.get('/:id', function (req, res) {
 });
 
 jobRouter.get('/', function (req, res) {
-    jobController.findAll(function (data, state) {
+    jobController.getAll(function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -43,7 +43,7 @@ jobRouter.post('/', function (req, res) {
     });
 });
 
-jobRouter.post('/update/:id', function (req, res) {
+jobRouter.put('/update/:id', function (req, res) {
     if (Number.parseInt(req.params.id)) {
         var values = []
         var columns = []
@@ -67,7 +67,7 @@ jobRouter.post('/update/:id', function (req, res) {
 });
 
 jobRouter.post('/delete/:id', function (req, res) {
-    jobController.delete(req.params.id, function (state) {
+    jobController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

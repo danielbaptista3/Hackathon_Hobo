@@ -28,7 +28,7 @@ associationRouter.post('/', function (req, res) {
     });
 });
 
-associationRouter.post('/update/:id', function (req, res) {
+associationRouter.put('/update/:id', function (req, res) {
     if (Number.parseInt(req.params.id)) {
         var values = []
         var columns = []
@@ -52,7 +52,7 @@ associationRouter.post('/update/:id', function (req, res) {
 });
 
 associationRouter.post('/delete/:id', function (req, res) {
-    associationController.delete(req.params.id, function (state) {
+    associationController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

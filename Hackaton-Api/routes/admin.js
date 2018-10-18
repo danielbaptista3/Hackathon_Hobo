@@ -6,19 +6,8 @@ const adminController = controllers.admin;
 
 adminRouter.use(bodyParser.json());
 
-adminRouter.get('/:username/:password', function (req, res) {
-    adminController.connect(req.params.username, req.params.password, function (state) {
-        if (state === true) {
-            res.json(state).status(200).end();
-            return;
-        }
-        res.status(500).end();
-        return;
-    });
-});
-
 adminRouter.post('/', function (req, res) {
-    adminController.create([req.body.username, req.body.password], function (state) {
+    adminController.create([req.body.username, req.body.password, req], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

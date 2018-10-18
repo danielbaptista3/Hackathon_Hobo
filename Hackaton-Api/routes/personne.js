@@ -6,8 +6,9 @@ const personneController = controllers.personne;
 
 personneRouter.use(bodyParser.json());
 
+// TODO
 personneRouter.get('/zone/:zone', function (req, res) {
-    personneController.findZone(req.params.zone, function (data, state) {
+    personneController.getByZone(req.params.zone, function (data, state) {
         if (state === false) {
             res.status(500).end();
         }
@@ -19,34 +20,8 @@ personneRouter.get('/zone/:zone', function (req, res) {
     });
 });
 
-personneRouter.get('/:id', function (req, res) {
-    personneController.findOne(req.params.id, function (data, state) {
-        if (state === false) {
-            res.status(500).end();
-        }
-        if (data !== 0) {
-            data = JSON.parse(data);
-            res.json(data).status(200);
-        }
-        res.status(404).end();
-    });
-});
-
-personneRouter.get('/', function (req, res) {
-    personneController.findAll(function (data, state) {
-        if (state === false) {
-            res.status(500).end();
-        }
-        if (data !== 0) {
-            data = JSON.parse(data);
-            res.json(data).status(200).end();
-        }
-        res.status(404).end();
-    });
-});
-
-personneRouter.post('/', function (req, res) {
-    personneController.create([req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
+personneRouter.post('/:latitude/:longitude', function (req, res) {
+    personneController.create([req.body.lastName, req.body.firstName, req.params.latitude, req.params.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
@@ -57,7 +32,7 @@ personneRouter.post('/', function (req, res) {
 });
 
 personneRouter.post('/delete/:id', function (req, res) {
-    personneController.delete(req.params.id, function (state) {
+    personneController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
