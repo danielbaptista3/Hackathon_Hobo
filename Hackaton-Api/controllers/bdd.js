@@ -37,8 +37,6 @@ bddController.executeQuery = function(text, values, callback){
             console.log('Requête executée');
             data = JSON.stringify(res);
             state = true;
-            console.log(state);
-            console.log(data);
             callback(data, state);
         });
     });
