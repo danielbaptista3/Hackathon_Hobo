@@ -2,7 +2,7 @@ const bddController = require('./bdd');
 const associationController = function(){};
 
 associationController.connect = function(username, password, callback) {
-    bddController.executeQuery('select * from association, admin where (association.mail = ? and association.password = ?) or (admin.user = ? and admin.password = ?))', [username, password], function(data, state){
+    bddController.executeQuery('select * from association, admin where (association.mail = ? and association.password = ?) OR (admin.user = ? and admin.password = ?)', [username, password, username, password], function(data, state){
         callback(data, state);
     });
 };
