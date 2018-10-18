@@ -33,7 +33,7 @@ logementRouter.get('/', function (req, res) {
 });
 
 logementRouter.post('/', function (req, res) {
-    logementController.create([req.body.adresse, req.body.price, req.body.city, req.body.cp, req.body.area, req.body.available, /* TODO session.idAssociation */], function (state) {
+    logementController.create([req.body.address, req.body.price, req.body.city, req.body.cp, req.body.area, req.body.available, /* TODO session.idAssociation */], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
