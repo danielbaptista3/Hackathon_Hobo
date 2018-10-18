@@ -19,6 +19,7 @@ associationRouter.get('/:username/:password', function (req, res) {
 
 associationRouter.post('/', function (req, res) {
     associationController.create([req.body.name, req.body.mail, req.body.password, req.body.rna, req.body.siren], function (state) {
+
         if (state === true) {
             res.json(state).status(200).end();
             return;
