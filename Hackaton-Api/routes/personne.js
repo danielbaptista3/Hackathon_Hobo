@@ -20,8 +20,8 @@ personneRouter.get('/zone/:zone', function (req, res) {
     });
 });
 
-personneRouter.post('/:latitude/:longitude', function (req, res) {
-    personneController.create([req.body.lastName, req.body.firstName, req.params.latitude, req.params.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
+personneRouter.post('/create', function (req, res) {
+    personneController.create([req.body.lastName, req.body.firstName, req.body.latitude, req.body.longitude, req.body.description, req.body.genre, req.body.self], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;
