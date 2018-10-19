@@ -11,7 +11,7 @@ personneController.getAll = function(callback) {
 personneController.getByZone = function(latitude, longitude, callback) {
     distance = '61.5 * ACOS((sin('+latitude+')*sin(latitude)) + cos('+latitude+')*cos(latitude)*cos('+longitude+' - longitude)) * 1.60 * 1000';
 
-    bddController.executeQuery('select * from SDF where '+distance+' <= 5', [''], function(data, state){
+    bddController.executeQuery('select * from SDF where '+distance+' <= 50', [''], function(data, state){
         callback(data, state);
     });
 };

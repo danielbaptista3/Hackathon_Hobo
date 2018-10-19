@@ -9,11 +9,14 @@ associationRouter.use(bodyParser.json());
 associationRouter.get('/:username/:password', function (req, res) {
     associationController.connect(req.params.username, req.params.password, function (data, state) {
         data = JSON.parse(data);
+        console.log(data);
         if (state === false) {
+            console.log("db error");
             res.status(500).end();
             return;
         }
-        if (data !== 0) {
+        if (data.length !== 0) {
+            console.log("ok");
             res.json(data).status(200).end();
             return;
         }
