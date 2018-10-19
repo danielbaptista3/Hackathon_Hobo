@@ -6,7 +6,7 @@ const adminController = controllers.admin;
 
 adminRouter.use(bodyParser.json());
 
-adminRouter.post('/', function (req, res) {
+adminRouter.post('/create', function (req, res) {
     adminController.create([req.body.username, req.body.password, req], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
@@ -17,7 +17,7 @@ adminRouter.post('/', function (req, res) {
     });
 });
 
-adminRouter.post('/update/:id', function (req, res) {
+adminRouter.put('/update/:id', function (req, res) {
     if (Number.parseInt(req.params.id)) {
         var values = []
         var columns = []

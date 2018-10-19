@@ -21,8 +21,8 @@ visiteRouter.get('/:idSDF/:idAssoc', function (req, res) {
     });
 });
 
-visiteRouter.post('/:idSDF/:idAssoc', function (req, res) {
-    visiteController.create([req.body.date, req.body.description, req.params.idSDF, req.params.idAssoc], function (state) {
+visiteRouter.post('/create', function (req, res) {
+    visiteController.create([req.body.date, req.body.description, req.body.idSDF, req.body.idAssoc], function (state) {
         if (state === true) {
             res.json(state).status(200).end();
             return;

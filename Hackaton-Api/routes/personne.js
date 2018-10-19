@@ -48,7 +48,7 @@ personneRouter.post('/create', function (req, res) {
     });
 });
 
-personneRouter.post('/delete/:id', function (req, res) {
+personneRouter.delete('/delete/:id', function (req, res) {
     personneController.deleteById(req.params.id, function (state) {
         if (state === true) {
             res.json(state).status(200).end();
